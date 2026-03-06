@@ -48,6 +48,11 @@ java-docker/
 docker compose up --build
 ```
 
+### Docker test
+```
+docker compose --profile test run --rm tests 
+```
+
 ### rodar testes no docker (sem maven local)
 ```
 docker compose --profile test run --rm tests
