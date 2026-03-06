@@ -25,7 +25,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: root
 
   tests:
-    image: eclipse-temurin:25-jdk
+    image: eclipse-temurin:21-jdk
     container_name: spring_tests
     working_dir: /workspace
     profiles:
