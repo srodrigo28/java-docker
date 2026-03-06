@@ -1,18 +1,45 @@
 ### Estrutura do projeto
 > * Spring DevTools
-> * Spring MYSQL
+> * Spring MySQL
 > * Spring Lombok
-> * Spring Web
-> * Spring JPA
+> * Spring Web MVC
+> * Spring Data JPA
 
-
-<br />
-```
-seu-projeto/
+```text
+java-docker/
 ├─ database/
 ├─ src/
+│  ├─ main/
+│  │  ├─ java/com/treinamento/
+│  │  │  ├─ controller/
+│  │  │  │  └─ ProdutoController.java
+│  │  │  ├─ dto/produto/
+│  │  │  │  ├─ ProdutoRequestDTO.java
+│  │  │  │  └─ ProdutoResponseDTO.java
+│  │  │  ├─ exception/
+│  │  │  │  ├─ ApiErrorResponse.java
+│  │  │  │  ├─ GlobalExceptionHandler.java
+│  │  │  │  └─ ResourceNotFoundException.java
+│  │  │  ├─ mapper/
+│  │  │  │  └─ ProdutoMapper.java
+│  │  │  ├─ model/
+│  │  │  │  └─ Produto.java
+│  │  │  ├─ repository/
+│  │  │  │  └─ ProdutoRepository.java
+│  │  │  ├─ service/
+│  │  │  │  └─ ProdutoService.java
+│  │  │  └─ JavaAppApplication.java
+│  │  └─ resources/
+│  │     ├─ application.properties
+│  │     └─ db/seed/produtos.sql
+│  └─ test/
+│     ├─ java/com/treinamento/JavaAppApplicationTests.java
+│     └─ resources/application-test.properties
+├─ .mvn/
 ├─ Dockerfile
 ├─ docker-compose.yml
+├─ etapas.md
+├─ README.md
 └─ pom.xml
 ```
 
@@ -68,7 +95,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/app_db?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/app_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
 
@@ -84,13 +111,17 @@ services:
 
 ### application.properties
 ```
-spring.datasource.url=jdbc:mysql://mysql:3306/app_db?useSSL=false&serverTimezone=UTC
+spring.datasource.url=jdbc:mysql://mysql:3306/app_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
 spring.datasource.username=root
 spring.datasource.password=root
 
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+spring.jpa.defer-datasource-initialization=true
+
+spring.sql.init.mode=always
+spring.sql.init.data-locations=classpath:db/seed/produtos.sql
 ```
 
 docker compose up --build
