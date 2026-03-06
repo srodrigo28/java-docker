@@ -8,6 +8,11 @@ seu-projeto/
 └─ pom.xml
 ```
 
+### rodar o projeto
+```
+docker compose up --build
+```
+
 ### Dockerfile
 ```
 FROM eclipse-temurin:25-jdk
